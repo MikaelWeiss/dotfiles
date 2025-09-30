@@ -11,18 +11,21 @@ vim.keymap.set("n", "<leader>Q", ":q!<CR>", { desc = "Quit without saving" })
 vim.keymap.set("n", "<D-r>", function()
   local filetype = vim.bo.filetype
   local file = vim.fn.expand("%:p")
-  local cmd
+  local run_cmd
 
   if filetype == "elixir" then
-    cmd = "elixir " .. vim.fn.shellescape(file)
+    run_cmd = "elixir " .. vim.fn.shellescape(file)
   elseif filetype == "python" then
-    cmd = "python3 " .. vim.fn.shellescape(file)
+    run_cmd = "python3 " .. vim.fn.shellescape(file)
   elseif filetype == "swift" then
-    cmd = "swift " .. vim.fn.shellescape(file)
+    run_cmd = "swift " .. vim.fn.shellescape(file)
   else
     print("No run command configured for filetype: " .. filetype)
     return
   end
+
+  -- Run the command in a shell, then keep the shell open
+  local cmd = vim.o.shell .. " -c " .. vim.fn.shellescape(run_cmd .. "; exec " .. vim.o.shell)
 
   Snacks.terminal(cmd, {
     win = { position = "bottom" },
