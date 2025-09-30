@@ -132,8 +132,8 @@ gbc() {
 }
 gw() {
     git worktree add -b "mikael/$1" ".worktrees/$1" && \
-    cd ".worktrees/$1" && \
-    git push -u origin "mikael/$1"
+    cd ".worktrees/$1" &&
+    # git push -u origin "mikael/$1"
 }
 gwop() {
     git worktree add -b "mikael/$1" ".worktrees/$1" && \
@@ -227,4 +227,9 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # Add npm global bin path
-export PATH="/opt/homebrew/Cellar/node/24.5.0/bin:$PATH"
+export PATH="/opt/homebrew/opt/node/bin:$PATH"
+
+# Source Kit LSP
+export PATH="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp:$PATH"
+
+alias claude="/Users/mikaelweiss/.claude/local/claude"
