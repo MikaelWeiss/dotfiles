@@ -233,3 +233,6 @@ export PATH="/opt/homebrew/opt/node/bin:$PATH"
 export PATH="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp:$PATH"
 
 alias claude="/Users/mikaelweiss/.claude/local/claude"
+
+export PATH=$HOME//opt/homebrew/Cellar/erlang/28.1/lib/erlang/erts-16.1/bin:$PATH
+export PATH=$HOME//opt/homebrew/bin:$PATH

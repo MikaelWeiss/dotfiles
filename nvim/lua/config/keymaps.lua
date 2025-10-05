@@ -7,6 +7,9 @@ vim.keymap.set("n", "<leader>W", ":wq<CR>", { desc = "Write and quit" })
 vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<leader>Q", ":q!<CR>", { desc = "Quit without saving" })
 
+-- Toggle file explorer with cmd+s
+vim.keymap.set("n", "<D-s>", ":Neotree toggle<CR>", { desc = "Toggle file explorer" })
+
 -- Run code based on file type with cmd+r
 vim.keymap.set("n", "<D-r>", function()
   local filetype = vim.bo.filetype
