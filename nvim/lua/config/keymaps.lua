@@ -47,3 +47,7 @@ end, { desc = "Run current file" })
 -- Toggle comment with cmd+/
 vim.keymap.set("n", "<D-/>", "gcc", { desc = "Toggle comment line", remap = true })
 vim.keymap.set("v", "<D-/>", "gc", { desc = "Toggle comment selection", remap = true })
+
+-- Buffer navigation
+vim.keymap.set("n", "[[", ":bprevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "]]", ":bnext<CR>", { desc = "Next buffer" })
