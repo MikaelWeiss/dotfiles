@@ -21,6 +21,10 @@ vim.keymap.set("n", "<D-r>", function()
   if filetype == "swift" then
     vim.cmd("XcodebuildBuildRun")
     return
+  elseif filetype == "dart" then
+    vim.cmd("FlutterQuit")
+    vim.cmd("FlutterRun")
+    return
   end
 
   local run_cmd

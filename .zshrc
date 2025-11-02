@@ -190,7 +190,6 @@ export PATH="$HOME/.cargo/env:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$PATH:/path/to/elixir/bin"
 source $HOME/.local/bin/env
-export PATH=$HOME/flutter-sdk/flutter/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 export CLAUDE_APP_PATH="/opt/homebrew/bin/claude"
 
@@ -226,13 +225,12 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
 
-# Add npm global bin path
 export PATH="/opt/homebrew/opt/node/bin:$PATH"
+export PATH=$HOME//opt/homebrew/bin:$PATH
+export PATH=$HOME//opt/homebrew/Cellar/erlang/28.1/lib/erlang/erts-16.1/bin:$PATH
 
 # Source Kit LSP
 export PATH="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp:$PATH"
 
 alias claude="/Users/mikaelweiss/.claude/local/claude"
 
-export PATH=$HOME//opt/homebrew/Cellar/erlang/28.1/lib/erlang/erts-16.1/bin:$PATH
-export PATH=$HOME//opt/homebrew/bin:$PATH
