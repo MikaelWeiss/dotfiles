@@ -13,6 +13,9 @@ vim.keymap.set("n", "<D-S-y>", function()
   Snacks.terminal(nil, { win = { position = "bottom" } })
 end, { desc = "Open terminal" })
 
+-- Edit all in scope
+vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
+
 -- Run code based on file type with cmd+r
 vim.keymap.set("n", "<D-r>", function()
   local filetype = vim.bo.filetype
