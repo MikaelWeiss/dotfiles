@@ -172,6 +172,7 @@ alias venv='source .venv/bin/activate'
 alias xc='sh ~/code/dotfiles/resize-xcode.sh'
 alias st='pnpm tauri dev'
 alias sti='pnpm tauri ios dev "iPhone 16 Plus"'
+alias :q='exit'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -233,4 +234,17 @@ export PATH=$HOME//opt/homebrew/Cellar/erlang/28.1/lib/erlang/erts-16.1/bin:$PAT
 export PATH="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp:$PATH"
 
 alias claude="/Users/mikaelweiss/.claude/local/claude"
+
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+
+export JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home
+export PATH="$JAVA_HOME/bin:$PATH"
+eval "$(zoxide init zsh)"
+
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
+
+# Enable shell history with iex
+export ERL_AFLAGS="-kernel shell_history enabled"
 
