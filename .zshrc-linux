@@ -26,6 +26,7 @@ alias gcpld='git loadCheckpoint'
 # Random
 alias venv='source .venv/bin/activate'
 alias :q='exit'
+alias cd=z
 
 eval "$(zoxide init zsh)"
 export TERM=xterm-256color
