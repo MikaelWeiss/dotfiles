@@ -5,7 +5,7 @@ fi
 
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git)
+plugins=(git dotenv macos sudo)
 source $ZSH/oh-my-zsh.sh
 
 # Alias'
@@ -16,7 +16,7 @@ alias lg='lazygit'
 alias gcm="git commit -m"
 unalias gcl 2>/dev/null
 gcl() {
-    git clone https://github.com/mikaelweiss/$1
+    git clone git@github.com:MikaelWeiss/$1.git
 }
 gbc() {
     git checkout -b $1 && git push -u origin $1
