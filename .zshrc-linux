@@ -44,3 +44,4 @@ source $ZSH/oh-my-zsh.sh
 
 # Enable shell history with iex
 export ERL_AFLAGS="-kernel shell_history enabled"
+export PATH="$HOME/.local/bin:$PATH"
