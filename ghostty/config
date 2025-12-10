@@ -48,4 +48,4 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 keybind = shift+enter=text:\x1b\r
-keybind = super+delete=text:\u{0015}
+keybind = super+delete=text:\x15
