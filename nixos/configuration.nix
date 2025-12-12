@@ -94,11 +94,10 @@
       elixir-ls
       vscode-langservers-extracted
       unzip
-      ];
-
-  environment.systemPackeges = with pkgs-unstable; [
-      tailscale
-  ];
+      ] ++ (with pkgs-unstable; [
+        # Unstable packages
+        tailscale
+      ]);
 
   environment.variables = {
     TERM = "xterm-256color";
