@@ -214,7 +214,7 @@
         EULA = "TRUE";
         TYPE = "FABRIC";
         MEMORY = "2G";
-        VERSION = "LATEST";
+        VERSION = "1.21.10";
         UID = "1000";
         GID = "1000";
         REMOVE_OLD_MODS = "FALSE";
@@ -233,7 +233,7 @@
   };
 
 # Open ports in the firewall.
-# networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 25565 ];
 # networking.firewall.allowedUDPPorts = [ ... ];
 # Or disable the firewall altogether.
 # networking.firewall.enable = false;
