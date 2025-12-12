@@ -2,12 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 
-let
-unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
-in {
+{
   imports =
     [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -76,9 +74,9 @@ in {
 # wget
     gcc
       neovim
+      vim
       git
       oh-my-zsh
-      unstable.tailscale
       lazygit
       zoxide
       zsh-powerlevel10k
@@ -97,6 +95,10 @@ in {
       vscode-langservers-extracted
       unzip
       ];
+
+  environment.systemPackeges = with pkgs-unstable; [
+      tailscale
+  ];
 
   environment.variables = {
     TERM = "xterm-256color";
