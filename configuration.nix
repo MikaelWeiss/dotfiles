@@ -57,12 +57,17 @@ in {
     description = "Mikael Weiss";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
+    linger = true; # Auto-start before login
+      autoSubUidGidRange = true; # For rootless containers
   };
 
   security.sudo.wheelNeedsPassword = false;
 
 # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+# Podman Quadlets
+  virtualisation.quadlet.enable = true;
 
 # List packages installed in system profile. To search, run:
 # $ nix search wget
@@ -194,6 +199,36 @@ in {
 
 # Tailscale in trusted zone
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
+# Minecraft server container
+  virtualisation.quadlet.containers.minecraft-server = {
+    autoStart = true;
+
+    containerConfig = {
+      image = "docker.io/itzg/minecraft-server:latest";
+      publishPorts = [ "25565:25565" ];
+      volumes = [ "/home/mikaelweiss/.minecraft-server/data:/data" ];
+      environments = {
+        EULA = "TRUE";
+        TYPE = "FABRIC";
+        MEMORY = "2G";
+        VERSION = "LATEST";
+        UID = "1000";
+        GID = "1000";
+        REMOVE_OLD_MODS = "FALSE";
+      };
+      securityLabelDisable = true;
+    };
+
+    serviceConfig = {
+      Restart = "always";
+    };
+
+    unitConfig = {
+      After = "network-online.target";
+      Wants = "network-online.target";
+    };
+  };
 
 # Open ports in the firewall.
 # networking.firewall.allowedTCPPorts = [ ... ];
