@@ -87,8 +87,6 @@ return {
         },
         -- pyright will be automatically installed with mason and loaded with lspconfig
         pyright = {},
-        elixirls = {},
-        jasonls = {},
       },
       inlay_hints = { enabled = false },
       -- you can do any additional lsp server setup here
@@ -121,10 +119,25 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      auto_install = false,
-      ensure_installed = {},
-      indent = { enable = true },
-      highlight = { enable = true },
+      ensure_installed = {
+        "bash",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "query",
+        "regex",
+        "tsx",
+        "typescript",
+        "vim",
+        "elixir",
+        "eex",
+        "heex",
+        "yaml",
+      },
     },
   },
 
@@ -176,14 +189,12 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
-      ensure_installed = {},
-    },
-  },
-
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      automatic_installation = false,
+      ensure_installed = {
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        "flake8",
+      },
     },
   },
 }
