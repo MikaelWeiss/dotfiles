@@ -87,6 +87,10 @@ in {
       erlang
       postgresql
       ripgrep
+      tree-sitter
+      elixir-ls
+      vscode-langservers-extracted
+      unzip
       ];
 
   environment.variables = {
@@ -116,6 +120,14 @@ in {
         email = "campingmikael@icloud.com";
         name = "Mikael Weiss";
       };
+    };
+  };
+
+  programs.neovim = {
+    configure = {
+      packages.all.start = with pkgs.vimPlugins; [
+        nvim-treesitter.withAllGrammars
+      ];
     };
   };
 
