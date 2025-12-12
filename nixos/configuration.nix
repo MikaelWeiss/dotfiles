@@ -94,6 +94,7 @@
       elixir-ls
       vscode-langservers-extracted
       unzip
+      claude-code
       ] ++ (with pkgs-unstable; [
         # Unstable packages
         tailscale
