@@ -103,6 +103,8 @@
       waybar
       hyprpaper
       sddm-astronaut # Themes packages
+      # Apps
+      signal-desktop
       ] ++ (with pkgs-unstable; [
         # Unstable packages
         tailscale
