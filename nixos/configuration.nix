@@ -76,25 +76,33 @@
       neovim
       vim
       git
-      oh-my-zsh
-      lazygit
-      zoxide
-      zsh-powerlevel10k
-      meslo-lgs-nf
-      fzf
-      btop
-      yazi
-      restic
+      oh-my-zsh # Better zsh
+      lazygit # Better git
+      zoxide # Better cd
+      zsh-powerlevel10k # ZSH theme
+      meslo-lgs-nf # Nerd font
+      fzf # Fuzy find files
+      btop # Visualization of hardware status
+      yazi # File browser
+      restic # Backup software
       ghostty
-      elixir 
+      elixir
       erlang
       postgresql
       ripgrep
       tree-sitter
       elixir-ls
-      vscode-langservers-extracted
-      unzip
+      vscode-langservers-extracted # For Neovim LS support
+      unzip #Neovim dependancy
       claude-code
+      tmux # Split screen and windows in the terminal
+      tldr # Run tldr tmux to see the tldr for the tmux docs
+      # Hyprland tools
+      hyprland
+      wofi
+      waybar
+      hyprpaper
+      sddm-astronaut # Themes packages
       ] ++ (with pkgs-unstable; [
         # Unstable packages
         tailscale
@@ -138,6 +146,11 @@
     };
   };
 
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
   users.defaultUserShell = pkgs.zsh;
 
 
@@ -166,6 +179,25 @@
   };
 
   services.tailscale.enable = true;
+
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    theme = "sddm-astronaut-theme";
+
+    settings.Theme = {
+      Current = "sddm-astronaut-theme";
+      ThemeVariant = "black_hole";
+    };
+
+    package = pkgs.kdePackages.sddm.override {
+      extraPackages = with pkgs.kdePackages; [
+        qtmultimedia
+        qtsvg
+        qtvirtualkeyboard
+      ];
+    };
+  };
 
 # Enable Samba
   services.samba = {
