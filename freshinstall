@@ -35,7 +35,3 @@ ln -s ~/code/dotfiles/.p10k.zsh ~/
 ln -s ~/code/dotfiles/.gitnore ~/
 ln -s ~/code/dotfiles/.gitconfig ~/
 
-# Set up github config
-git config --global core.excludesFile ~/.gitnore
-git config --global user.name Mikael\ Weiss
-git config --global user.email campingmikael@icloud.com
