@@ -10,3 +10,8 @@ buildServer.json
 .worktrees
 .env
 .nvim
+
+# Direnv
+.direnv
+result
+

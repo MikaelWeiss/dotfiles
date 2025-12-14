@@ -35,7 +35,7 @@
         cocoapods # Manage dependancies for your Xcode projects
         dust # Du, but better
         ffmpeg
-        nodejs_20
+        nodejs_22
         javaPackages.compiler.openjdk21 # Java
         javaPackages.compiler.openjdk17 # Java
         swiftformat # Swift formatter
@@ -46,6 +46,9 @@
         xcodegen # Swift CLI for generating Xcode projects
         zoxide # Better cd
         mas # CLI to manage Mac Apps from the App Store
+        # Load Nix environment when you open a directory with .envrc file
+        direnv
+        nix-direnv
         ];
 
       # Necessary for using flakes on this system.
