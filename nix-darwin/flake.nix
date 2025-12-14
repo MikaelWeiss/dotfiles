@@ -49,6 +49,8 @@
         # Load Nix environment when you open a directory with .envrc file
         direnv
         nix-direnv
+        pass # Password management cli
+        gnupg # GPG key manager
         ];
 
       # Necessary for using flakes on this system.

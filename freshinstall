@@ -34,4 +34,5 @@ ln -s ~/code/dotfiles/.p10k.zsh ~/
 ln -s ~/code/dotfiles/.gitnore ~/
 ln -s ~/code/dotfiles/.gitconfig ~/
 ln -s /Users/mikaelweiss/code/dotfiles/ghostty /Users/mikaelweiss/.config/ghostty
+ln -s /Users/mikaelweiss/code/dotfiles/direnv .config/direnv
 
