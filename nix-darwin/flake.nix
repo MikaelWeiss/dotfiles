@@ -45,13 +45,91 @@
         xcbeautify # Beautifier tool for Xcode
         xcodegen # Swift CLI for generating Xcode projects
         zoxide # Better cd
+        mas # CLI to manage Mac Apps from the App Store
         ];
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
 
+      # Primary user for user-specific options like Homebrew
+      system.primaryUser = "mikaelweiss";
+
+      # Passwordless Sudo
+      security.sudo.extraConfig = ''
+        mikaelweiss ALL=(ALL) NOPASSWD: ALL
+      '';
+
       # Enable alternative shell support in nix-darwin.
       # programs.fish.enable = true;
+
+      # Homebrew configuration
+      homebrew = {
+        enable = true;
+
+        # Taps (third-party repositories)
+        taps = [
+        ];
+
+        # CLI tools
+        brews = [
+          "elixir"
+          "llvm"
+          "postgresql@18"
+          "python@3.14"
+          "sqlite"
+          "xcode-build-server"
+        ];
+
+        # GUI Applications
+        casks = [
+          "android-commandlinetools"
+          "android-ndk"
+          "android-platform-tools"
+          "android-studio"
+          "arc"
+          "chatgpt"
+          "claude"
+          "cursor"
+          "ghostty"
+          "grandperspective"
+          "notion"
+          "obs"
+          "obsidian"
+          # "openmtp" # Android file transfer
+          "prusaslicer"
+          "raycast"
+          "sf-symbols"
+          "void"
+          "zed"
+          "zoom"
+        ];
+
+        # Mac App Store apps by ID
+        masApps = {
+          # "Base" = 402383384;
+          # "DaVinci Resolve" = 571213070;
+          # "DevCleaner" = 1388020431;
+          # "Developer" = 640199958;
+          # "Harvest" = 506189836;
+          # "iMovie" = 408981434;
+          # "Magnet" = 441258766;
+          # "Numbers" = 409203825;
+          # "Obsidian Web Clipper" = 6720708363;
+          # "Pages" = 409201541;
+          # "RocketSim" = 1504940162;
+          # "Slack" = 803453959;
+          # "Tailscale" = 1475387142;
+        };
+
+        # Automatically uninstall things in Homebrew not listed in this flake
+        onActivation.cleanup = "zap";
+
+        # Auto-update Homebrew
+        onActivation.autoUpdate = true;
+
+        # Upgrade outdated packages
+        onActivation.upgrade = true;
+      };
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
