@@ -59,6 +59,19 @@
         mikaelweiss ALL=(ALL) NOPASSWD: ALL
       '';
 
+      # Remap right Command key to Escape at login
+      launchd.user.agents.remap-escape = {
+        serviceConfig = {
+          ProgramArguments = [
+            "/usr/bin/hidutil"
+            "property"
+            "--set"
+            "{\"UserKeyMapping\":[{\"HIDKeyboardModifierMappingSrc\":0x7000000E7,\"HIDKeyboardModifierMappingDst\":0x700000029}]}"
+          ];
+          RunAtLoad = true;
+        };
+      };
+
       # Enable alternative shell support in nix-darwin.
       # programs.fish.enable = true;
 
