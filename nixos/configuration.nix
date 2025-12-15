@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, pkgs-unstable, inputs, ... }:
 
 
 {
@@ -105,10 +105,10 @@
       sddm-astronaut # Themes packages
       # Apps
       signal-desktop
-      ] ++ (with pkgs-unstable; [
-        # Unstable packages
-        tailscale
-      ]);
+      tailscale
+
+      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+      ];
 
   environment.variables = {
     TERM = "xterm-256color";
