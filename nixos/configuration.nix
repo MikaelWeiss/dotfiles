@@ -279,10 +279,11 @@
 # Before changing this value read the documentation for this option
 # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-    system.autoUpgrade = {
-      enable = true;
-      dates = "daily";
-      allowReboot = true;
-    };
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:mikaelweiss/dotfiles?dir=nixos";
+    dates = "*-*-* 00,06,12,18:00:00";  # Midnight, 6am, noon, 6pm
+    allowReboot = true;
+  };
 
 }
