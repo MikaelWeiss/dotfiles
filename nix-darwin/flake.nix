@@ -53,6 +53,12 @@
         gnupg # GPG key manager
         ];
 
+      programs.direnv = {
+        enable = true;
+        silent = true;
+        nix-direnv.enable = true;
+      };
+
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
 
