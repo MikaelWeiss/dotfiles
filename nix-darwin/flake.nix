@@ -53,6 +53,12 @@
         gnupg # GPG key manager
         ];
 
+      # Set nvim as default editor
+      environment.variables = {
+        EDITOR = "nvim";
+        VISUAL = "nvim";
+      };
+
       programs.direnv = {
         enable = true;
         silent = true;
@@ -126,6 +132,7 @@
           "void"
           "zed"
           "zoom"
+          "opencode-desktop"
         ];
 
         # Mac App Store apps by ID
