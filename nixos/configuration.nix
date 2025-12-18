@@ -23,7 +23,10 @@
 # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
 # Enable networking
-    networking.networkmanager.enable = true;
+networking.networkmanager.enable = true;
+
+# Set up Bluetooth
+hardware.bluetooth.enable = true;
 
 # Set your time zone.
   time.timeZone = "America/Denver";
@@ -106,8 +109,11 @@
       # Apps
       signal-desktop
       tailscale
+      firefoxpwa
 
-      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+      (inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+        nativeMessagingHosts = [ pkgs.firefoxpwa ];
+      })
       ];
 
   environment.variables = {
