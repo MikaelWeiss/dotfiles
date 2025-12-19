@@ -130,6 +130,13 @@
   # Make it so that if you make new users, they default to zsh
   users.defaultUserShell = pkgs.zsh;
 
+  # Filesystem stuff
+  fileSystems."/mnt/backup" = {
+    device = "/dev/disk/by-uuid/5E6F-A55B";
+    fsType = "exfat";
+    options = [ "defaults" "nofail" "uid=1000" "gid=100" ];
+  };
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
