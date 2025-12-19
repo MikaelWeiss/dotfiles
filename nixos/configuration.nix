@@ -141,6 +141,42 @@
     };
   };
 
+  # Set up tailscale
+  services.tailscale.enable = true;
+
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        workgroup = "SAMBA";
+        security = "user";
+        "passdb backend" = "tdbsam";
+        "server min protocol" = "SMB3";
+        "smb encrypt" = "required";
+        "hosts allow" = "192.168.0.0/24 100.64.0.0/10 EXCEPT 192.168.0.103 100.105.253.35";
+        "hosts deny" = "ALL";
+        "load printers" = "no";
+        printing = "bsd";
+        "printcap name" = "/dev/null";
+        "disable spoolss" = "yes";
+      };
+      share = {
+        comment = "My Share";
+        path = "/home/mikaelweiss/share";
+        writeable = "yes";
+        browseable = "yes";
+        public = "no";
+        "valid users" = "mikaelweiss";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+      };
+    };
+  };
+
+  # Trust tailscale interface
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
