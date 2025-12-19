@@ -54,7 +54,11 @@
     description = "Mikael Weiss";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
+    shell = pkgs.zsh;
   };
+
+  # Passwordless sudo
+  security.sudo.wheelNeedsPassword = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -62,10 +66,37 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-    neovim
-    git
+   wget
+   neovim
+   gcc # Dependancy of LazyVim
+   vim
+   git
+   oh-my-zsh # Better zsh
+   lazygit # Better git
+   zoxide # Better cd
+   zsh-powerlevel10k # ZSH theme
+   meslo-lgs-nf # Nerd font
+   fzf # Fuzy find files
+   btop # Visualization of hardware status
+   yazi # File browser
+   restic # Backup software
+   elixir
+   erlang
+   postgresql
+   ripgrep
+   unzip #Neovim dependancy
+   claude-code
+   tmux # Split screen and windows in the terminal
+   tldr # Run tldr tmux to see the tldr for the tmux docs
+   # Hyprland tools
+   hyprland
+   wofi
+   waybar
+   hyprpaper
+   # Apps
+   ghostty
+   signal-desktop
+   tailscale
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -86,6 +117,18 @@
     };
   };
 
+  programs.zsh = {
+    enable = true;
+    promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+
+    ohMyZsh = {
+      enable = true;
+      plugins = [ "git" "sudo" "rsync" "systemd" ];
+    };
+  };
+
+  # Make it so that if you make new users, they default to zsh
+  users.defaultUserShell = pkgs.zsh;
 
   # List services that you want to enable:
 
