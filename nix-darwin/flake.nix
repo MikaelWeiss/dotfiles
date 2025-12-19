@@ -51,6 +51,7 @@
         nix-direnv
         pass # Password management cli
         gnupg # GPG key manager
+        btop # See whats up
         ];
 
       # Set nvim as default editor
