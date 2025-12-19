@@ -134,7 +134,23 @@
   fileSystems."/mnt/backup" = {
     device = "/dev/disk/by-uuid/5E6F-A55B";
     fsType = "exfat";
-    options = [ "defaults" "nofail" "uid=1000" "gid=100" ];
+    options = [ "defaults" "nofail" "uid=1000" "gid=100" "umask=0022" ];
+  };
+
+  # Enable software RAID support
+  boot.swraid = {
+    enable = true;
+    mdadmConf = ''
+      MAILADDR root
+      ARRAY /dev/md0 metadata=1.2 UUID=f1e05811:f63c3220:1dcb668e:8874e544
+    '';
+  };
+
+  # Mount the RAID array
+  fileSystems."/mnt/raid" = {
+    device = "/dev/md0";
+    fsType = "exfat";
+    options = [ "defaults" "nofail" "uid=1000" "gid=100" "umask=0022" ];
   };
 
   # List services that you want to enable:
