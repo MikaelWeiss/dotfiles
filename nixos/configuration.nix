@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -97,6 +97,7 @@
    ghostty
    signal-desktop
    tailscale
+   cockpit
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -161,6 +162,19 @@
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
+    };
+  };
+
+  # Cockpit
+  services.cockpit = {
+    enable = true;
+    port = 9090;
+    openFirewall = true;
+    settings = {
+      WebService = {
+        AllowUnencrypted = true;
+        Origins = lib.mkForce "https://localhost:9090 http://localhost:9090 https://elm:9090 http://elm:9090 https://100.81.131.90:9090 http://100.81.131.90:9090";
+      };
     };
   };
 
