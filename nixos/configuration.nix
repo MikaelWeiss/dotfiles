@@ -197,6 +197,89 @@
     };
   };
 
+  # Share backup service
+  systemd.services.share-backup = {
+    description = "Restic backup of share folder";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "mikaelweiss";
+      Nice = 19;
+      IOSchedulingClass = "idle";
+    };
+    environment.RESTIC_PASSWORD_FILE = "/etc/restic/password";
+    path = [ pkgs.restic pkgs.openssh ];
+    script = ''
+      restic -r /mnt/backup/share-backup backup /home/mikaelweiss/share
+      restic -r sftp:mikaelweiss@oak:/home/mikaelweiss/backups/share-backup backup /home/mikaelweiss/share
+      restic -r /mnt/backup/share-backup forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
+      restic -r sftp:mikaelweiss@oak:/home/mikaelweiss/backups/share-backup forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
+    '';
+  };
+
+  systemd.timers.share-backup = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = "15m";
+      Persistent = true;
+    };
+  };
+
+  # Minecraft backup service
+  systemd.services.minecraft-backup = {
+    description = "Restic backup of minecraft server data";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "mikaelweiss";
+      Nice = 19;
+      IOSchedulingClass = "idle";
+    };
+    environment.RESTIC_PASSWORD_FILE = "/etc/restic/password";
+    path = [ pkgs.restic pkgs.openssh pkgs.podman ];
+    script = ''
+      restic -r /mnt/backup/minecraft-backup backup /home/mikaelweiss/.minecraft-server/data
+      restic -r sftp:mikaelweiss@oak:/home/mikaelweiss/backups/minecraft-backup backup /home/mikaelweiss/.minecraft-server/data
+      restic -r /mnt/backup/minecraft-backup forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
+      restic -r sftp:mikaelweiss@oak:/home/mikaelweiss/backups/minecraft-backup forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
+    '';
+  };
+
+  systemd.timers.minecraft-backup = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = "15m";
+      Persistent = true;
+    };
+  };
+  
+  # Virtualisations
+  
+  virtualisation.podman.enable = true;
+
+  virtualisation.oci-containers = {
+    backend = "podman";
+    containers.minecraft-server = {
+      image = "docker.io/itzg/minecraft-server:latest";
+      ports = [ "25565:25565" ];
+      volumes = [ "/home/mikaelweiss/.minecraft-server/data:/data" ];
+      autoStart = true;
+      environment = {
+        EULA = "TRUE";
+        TYPE = "FABRIC";
+        MEMORY = "2G";
+        VERSION = "1.21.10";
+        UID = "1000";
+        GID = "100";
+        REMOVE_OLD_MODS = "FALSE";
+      };
+    };
+  };
+
   # Trust tailscale interface
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
