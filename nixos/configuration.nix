@@ -57,6 +57,15 @@
     shell = pkgs.zsh;
   };
 
+  users.users.ilovemywife = {
+    isSystemUser = true;
+    group = "ilovemywife";
+    home = "/var/lib/ilovemywife";
+    createHome = true;
+    shell = pkgs.bash;
+  };
+  users.groups.ilovemywife = {};
+
   # Passwordless sudo
   security.sudo.wheelNeedsPassword = false;
 
@@ -107,6 +116,10 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  # Enable nix-ld to run generic Linux binaries
+  # Needed for mix assets.deploy
+  programs.nix-ld.enable = true;
 
   programs.git = {
     enable = true;
@@ -270,6 +283,21 @@
       Persistent = true;
     };
   };
+
+  systemd.services.ilovemywife = {
+    description = "Website for Hannah";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    
+    serviceConfig = {
+      Type = "simple";
+      User = "ilovemywife";
+      Group = "ilovemywife";
+      WorkingDirectory = "/var/lib/ilovemywife";
+      EnvironmentFile = "/etc/ilovemywife/env";
+      ExecStart = "/var/lib/ilovemywife/i_love_my_wife/_build/prod/rel/i_love_my_wife/bin/i_love_my_wife start";
+    };
+  };
   
   # Virtualisations
   
@@ -298,7 +326,7 @@
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 4000 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
