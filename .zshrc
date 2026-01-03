@@ -38,7 +38,6 @@ alias icloud='cd ~/Library/Mobile\ Documents/com\~apple\~CloudDocs'
 alias venv='source .venv/bin/activate'
 alias xc='sh ~/code/dotfiles/resize-xcode.sh'
 alias :q='exit'
-alias cd=z
 alias nix-rebuild='sudo darwin-rebuild switch'
 alias nix-config='nvim /Users/mikaelweiss/code/dotfiles/nix-darwin/flake.nix'
 

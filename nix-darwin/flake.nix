@@ -3,12 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable }:
   let
+    system = "aarch64-darwin";
+    unstable = import nixpkgs-unstable { inherit system; };
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
@@ -52,6 +55,7 @@
         pass # Password management cli
         gnupg # GPG key manager
         btop # See whats up
+        unstable.firebase-tools # Firebase CLI (from unstable for latest version)
         ];
 
       # Set nvim as default editor

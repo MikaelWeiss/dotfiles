@@ -8,6 +8,11 @@ return {
           visible = true,
           hide_dotfiles = false,
           hide_gitignored = false,
+          never_show = {
+            ".conductor",
+            ".worktrees",
+            ".nvim",
+          },
         },
       },
     },
@@ -17,6 +22,13 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     opts = {
+      defaults = {
+        file_ignore_patterns = {
+          "%.conductor/",
+          "%.worktrees/",
+          "%.nvim/",
+        },
+      },
       pickers = {
         find_files = {
           hidden = true,
@@ -35,6 +47,7 @@ return {
           files = {
             hidden = true,
             ignored = true,
+            exclude = { ".conductor", ".worktrees", ".nvim" },
           },
         },
       },
