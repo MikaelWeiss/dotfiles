@@ -14,7 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "elm"; # Define your hostname.
+  networking.hostName = "charmander"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -57,15 +57,6 @@
     shell = pkgs.zsh;
   };
 
-  users.users.ilovemywife = {
-    isSystemUser = true;
-    group = "ilovemywife";
-    home = "/var/lib/ilovemywife";
-    createHome = true;
-    shell = pkgs.bash;
-  };
-  users.groups.ilovemywife = {};
-
   # Passwordless sudo
   security.sudo.wheelNeedsPassword = false;
 
@@ -107,6 +98,8 @@
    signal-desktop
    tailscale
    cockpit
+   # Display manager
+   sddm-astronaut
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -141,31 +134,10 @@
     };
   };
 
+  programs.hyprland.enable = true;
+
   # Make it so that if you make new users, they default to zsh
   users.defaultUserShell = pkgs.zsh;
-
-  # Filesystem stuff
-  fileSystems."/mnt/backup" = {
-    device = "/dev/disk/by-uuid/5E6F-A55B";
-    fsType = "exfat";
-    options = [ "defaults" "nofail" "uid=1000" "gid=100" "umask=0022" ];
-  };
-
-  # Enable software RAID support
-  boot.swraid = {
-    enable = true;
-    mdadmConf = ''
-      MAILADDR root
-      ARRAY /dev/md0 metadata=1.2 UUID=f1e05811:f63c3220:1dcb668e:8874e544
-    '';
-  };
-
-  # Mount the RAID array
-  fileSystems."/mnt/raid" = {
-    device = "/dev/md0";
-    fsType = "exfat";
-    options = [ "defaults" "nofail" "uid=1000" "gid=100" "umask=0022" ];
-  };
 
   # List services that you want to enable:
 
@@ -191,142 +163,22 @@
     };
   };
 
+  # Display manager
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    theme = "sddm-astronaut-theme";
+    extraPackages = [ pkgs.sddm-astronaut ];
+  };
+
   # Set up tailscale
   services.tailscale.enable = true;
-
-  services.samba = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      global = {
-        workgroup = "SAMBA";
-        security = "user";
-        "passdb backend" = "tdbsam";
-        "server min protocol" = "SMB3";
-        "smb encrypt" = "required";
-        "hosts allow" = "192.168.0.0/24 100.64.0.0/10 EXCEPT 192.168.0.103 100.105.253.35";
-        "hosts deny" = "ALL";
-        "load printers" = "no";
-        printing = "bsd";
-        "printcap name" = "/dev/null";
-        "disable spoolss" = "yes";
-      };
-      share = {
-        comment = "My Share";
-        path = "/home/mikaelweiss/share";
-        writeable = "yes";
-        browseable = "yes";
-        public = "no";
-        "valid users" = "mikaelweiss";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-      };
-    };
-  };
-
-  # Share backup service
-  systemd.services.share-backup = {
-    description = "Restic backup of share folder";
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      User = "mikaelweiss";
-      Nice = 19;
-      IOSchedulingClass = "idle";
-    };
-    environment.RESTIC_PASSWORD_FILE = "/etc/restic/password";
-    path = [ pkgs.restic pkgs.openssh ];
-    script = ''
-      restic -r /mnt/backup/share-backup backup /home/mikaelweiss/share
-      restic -r sftp:mikaelweiss@oak:/home/mikaelweiss/backups/share-backup backup /home/mikaelweiss/share
-      restic -r /mnt/backup/share-backup forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
-      restic -r sftp:mikaelweiss@oak:/home/mikaelweiss/backups/share-backup forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
-    '';
-  };
-
-  systemd.timers.share-backup = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "daily";
-      RandomizedDelaySec = "15m";
-      Persistent = true;
-    };
-  };
-
-  # Minecraft backup service
-  systemd.services.minecraft-backup = {
-    description = "Restic backup of minecraft server data";
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      User = "mikaelweiss";
-      Nice = 19;
-      IOSchedulingClass = "idle";
-    };
-    environment.RESTIC_PASSWORD_FILE = "/etc/restic/password";
-    path = [ pkgs.restic pkgs.openssh pkgs.podman ];
-    script = ''
-      restic -r /mnt/backup/minecraft-backup backup /home/mikaelweiss/.minecraft-server/data
-      restic -r sftp:mikaelweiss@oak:/home/mikaelweiss/backups/minecraft-backup backup /home/mikaelweiss/.minecraft-server/data
-      restic -r /mnt/backup/minecraft-backup forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
-      restic -r sftp:mikaelweiss@oak:/home/mikaelweiss/backups/minecraft-backup forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune
-    '';
-  };
-
-  systemd.timers.minecraft-backup = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "daily";
-      RandomizedDelaySec = "15m";
-      Persistent = true;
-    };
-  };
-
-  systemd.services.ilovemywife = {
-    description = "Website for Hannah";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    
-    serviceConfig = {
-      Type = "simple";
-      User = "ilovemywife";
-      Group = "ilovemywife";
-      WorkingDirectory = "/var/lib/ilovemywife";
-      EnvironmentFile = "/etc/ilovemywife/env";
-      ExecStart = "/var/lib/ilovemywife/i_love_my_wife/_build/prod/rel/i_love_my_wife/bin/i_love_my_wife start";
-    };
-  };
   
-  # Virtualisations
-  
-  virtualisation.podman.enable = true;
-
-  virtualisation.oci-containers = {
-    backend = "podman";
-    containers.minecraft-server = {
-      image = "docker.io/itzg/minecraft-server:latest";
-      ports = [ "25565:25565" ];
-      volumes = [ "/home/mikaelweiss/.minecraft-server/data:/data" ];
-      autoStart = true;
-      environment = {
-        EULA = "TRUE";
-        TYPE = "FABRIC";
-        MEMORY = "2G";
-        VERSION = "1.21.10";
-        UID = "1000";
-        GID = "100";
-        REMOVE_OLD_MODS = "FALSE";
-      };
-    };
-  };
-
   # Trust tailscale interface
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 4000 ];
+  # networking.firewall.allowedTCPPorts = [ 4000 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
