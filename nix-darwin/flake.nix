@@ -56,6 +56,7 @@
         gnupg # GPG key manager
         btop # See whats up
         unstable.firebase-tools # Firebase CLI (from unstable for latest version)
+        python313Packages.pip # Pip for python
         ];
 
       # Set nvim as default editor
@@ -108,6 +109,7 @@
         # CLI tools
         brews = [
           "elixir"
+          "python3"
           "llvm"
           "postgresql@18"
           "python@3.14"
