@@ -50,7 +50,7 @@ eval $(/opt/homebrew/bin/brew shellenv)
 export FLYCTL_INSTALL="/Users/mikaelweiss/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
 # Cargo
-export PATH="$HOME/.cargo/env:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 # Ruby
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 # Elixir
