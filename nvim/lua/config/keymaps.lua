@@ -65,6 +65,8 @@ vim.keymap.set("n", "<D-r>", function()
       interactive = true,
       auto_close = false,
     })
+  else
+    vim.cmd("XcodebuildBuildRun")
     return
   end
 

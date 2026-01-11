@@ -23,7 +23,7 @@ gbc() {
 }
 gw() {
     git worktree add -b "mikael/$1" ".worktrees/$1" && \
-    cd ".worktrees/$1" &&
+    cd ".worktrees/$1"
     # git push -u origin "mikael/$1"
 }
 alias gcp='git checkpoint'
