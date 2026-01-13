@@ -80,9 +80,6 @@
    btop # Visualization of hardware status
    yazi # File browser
    restic # Backup software
-   elixir
-   erlang
-   postgresql
    ripgrep
    unzip #Neovim dependancy
    claude-code
@@ -100,6 +97,10 @@
    cockpit
    # Display manager
    sddm-astronaut
+   # Websites
+   elixir
+   erlang
+   postgresql
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -191,4 +192,48 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
 
+  ## Website Service Configurations
+  users.users.striveplanner = {
+    isSystemUser = true;
+    group = "striveplanner";
+    home = "/var/lib/striveplanner";
+    createHome = true;
+    shell = pkgs.zsh;
+  };
+  users.groups.striveplanner = {};
+
+  systemd.services.striveplanner = {
+    description = "Website for Strive Planner";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "simple";
+      User = "striveplanner";
+      Group = "striveplanner";
+      WorkingDirectory = "/var/lib/striveplanner";
+      ExecStart = "/var/lib/striveplanner/_build/prod/rel/strive_planner/bin/strive_planner start";
+      EnvironmentFile = "/etc/striveplanner/env";
+      Restart = "on-failure";
+    };
+  };
+
+
+  services.cloudflared = {
+    enable = true;
+    tunnels."YOUR-TUNNEL-ID" = {
+      credentialsFile = "/var/lib/cloudflared/YOUR-TUNNEL-ID.json";
+      ingress."striveplanner.org" = "http://localhost:4000";
+      default = "http_status:404";
+    };
+  };
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "striveplanner" ];
+    ensureUsers = [{
+      name = "striveplanner";
+      ensureDBOwnership = true;
+    }];
+  };
 }
