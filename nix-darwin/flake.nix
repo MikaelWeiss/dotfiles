@@ -140,7 +140,7 @@
           "prusaslicer"
           "raycast"
           "sf-symbols"
-          "void"
+          # "void"
           "zed"
           "zoom"
           "opencode-desktop"
@@ -188,6 +188,9 @@
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Mikaels-MacBook-Air
     darwinConfigurations."Mikaels-MacBook-Air" = nix-darwin.lib.darwinSystem {
+      modules = [ configuration ];
+    };
+    darwinConfigurations."Mikaels-Mac-mini" = nix-darwin.lib.darwinSystem {
       modules = [ configuration ];
     };
   };
