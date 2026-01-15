@@ -40,6 +40,7 @@ alias xc='sh ~/code/dotfiles/resize-xcode.sh'
 alias :q='exit'
 alias nix-rebuild='sudo darwin-rebuild switch'
 alias nix-config='nvim /Users/mikaelweiss/code/dotfiles/nix-darwin/flake.nix'
+alias nix-clean='nix-collect-garbage --delete-older-than 7d && sudo nix-collect-garbage --delete-older-than 7d && nix-store --optimise'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

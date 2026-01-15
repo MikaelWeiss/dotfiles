@@ -57,6 +57,9 @@
         btop # See whats up
         unstable.firebase-tools # Firebase CLI (from unstable for latest version)
         python313Packages.pip # Pip for python
+        # For typescriptLSP Claude Code plugin
+        nodePackages.typescript
+        nodePackages.typescript-language-server
         ];
 
       # Set nvim as default editor
@@ -127,6 +130,7 @@
           "chatgpt"
           "claude"
           "cursor"
+          "codex"
           "ghostty"
           "grandperspective"
           "notion"
