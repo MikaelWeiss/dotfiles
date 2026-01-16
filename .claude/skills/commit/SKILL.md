@@ -1,8 +1,14 @@
+---
+name: commit
+description: Commit Staged Changes. Create a commit for currently staged changes with an auto-generated message. Use when the user says "commit", "make a commit", "commit my changes", or invokes /commit.
+user-invocable: true
+---
+
 # Commit Staged Changes
 
 Create a commit for the currently staged changes with an auto-generated message.
 
-## Instructions
+## Process
 
 1. First, check git status to see what's staged:
    - Run `git status` to see staged changes
@@ -48,27 +54,28 @@ Create a commit for the currently staged changes with an auto-generated message.
 - One short paragraph max
 - Skip if the title says it all
 
-### Avoid
+## Anti-Patterns
+
 - Filler words: "This commit...", "Changes include...", "Updated..."
 - Listing every file changed
 - Obvious statements
 - **NEVER add Co-Authored-By, Signed-off-by, or any other footers/signatures**
 
-### Examples
+## Examples
 
-✅ Good (title only):
+**Good (title only):**
 - `fix: handle empty user input in search`
 - `feat: add dark mode toggle`
 - `refactor: extract validation logic to helper`
 
-✅ Good (with body):
+**Good (with body):**
 ```
 feat: add request caching layer
 
 Reduces API load by 40% for repeated queries.
 ```
 
-❌ Too verbose:
+**Too verbose (avoid):**
 ```
 fix: Fix bug in the authentication module
 
@@ -78,7 +85,7 @@ was caused by a null pointer exception in the session handler.
 Changes were made to auth.ts and session.ts files.
 ```
 
-✅ Same change, concise:
+**Same change, concise:**
 ```
 fix: prevent unexpected logout from null session
 ```
