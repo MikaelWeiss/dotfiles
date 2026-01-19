@@ -6,12 +6,14 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-clawdbot.url = "github:clawdbot/nix-clawdbot";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, nix-clawdbot }:
   let
     system = "aarch64-darwin";
     unstable = import nixpkgs-unstable { inherit system; };
+    clawdbot = nix-clawdbot.packages.${system}.default;
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
@@ -61,8 +63,9 @@
         # For typescriptLSP Claude Code plugin
         nodePackages.typescript
         nodePackages.typescript-language-server
-        # Other
+        # Fun Stuff
         claude-code
+        clawdbot
         ];
 
       # Set nvim as default editor
