@@ -65,7 +65,6 @@
         nodePackages.typescript-language-server
         # Fun Stuff
         claude-code
-        clawdbot
         ];
 
       # Set nvim as default editor
@@ -196,7 +195,12 @@
       modules = [ configuration ];
     };
     darwinConfigurations."Mikaels-Mac-mini" = nix-darwin.lib.darwinSystem {
-      modules = [ configuration ];
+      modules = [
+        configuration
+        {
+          environment.systemPackages = [ clawdbot ];
+        }
+      ];
     };
   };
 }
