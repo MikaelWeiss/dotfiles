@@ -26,6 +26,10 @@ gw() {
     cd ".worktrees/$1"
     # git push -u origin "mikael/$1"
 }
+gwc() {
+  git worktree add -b "mikael/$1" "~/.worktrees/ClipSpeak/$1" && \
+  cd "/Users/mikaelweiss/.worktrees/ClipSpeak/$1"
+}
 alias gcp='git checkpoint'
 alias gcpl='git listCheckpoints'
 alias gcpd='git deleteCheckpoint'
@@ -57,12 +61,7 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 # Elixir
 export PATH="$PATH:/path/to/elixir/bin"
 # Local bin
-source $HOME/.local/bin/env
 export PATH="$HOME/.local/bin:$PATH"
-. "$HOME/.local/bin/env"
-# Claude code
-export CLAUDE_APP_PATH="/opt/homebrew/bin/claude"
-alias claude="/Users/mikaelweiss/.claude/local/claude"
 
 # pnpm
 export PNPM_HOME="/Users/mikaelweiss/Library/pnpm"
@@ -96,3 +95,6 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Direnv stuff
 eval "$(direnv hook zsh)"
+
+# Set up term
+export TERM=xterm-256color

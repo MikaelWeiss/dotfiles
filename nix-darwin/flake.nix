@@ -15,6 +15,7 @@
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
+      nixpkgs.config.allowUnfree = true;
       environment.systemPackages = with pkgs;
         [
         vim # Vim
@@ -60,6 +61,8 @@
         # For typescriptLSP Claude Code plugin
         nodePackages.typescript
         nodePackages.typescript-language-server
+        # Other
+        claude-code
         ];
 
       # Set nvim as default editor
@@ -148,7 +151,6 @@
 
         # Mac App Store apps by ID
         masApps = {
-          # "Base" = 402383384;
           # "DaVinci Resolve" = 571213070;
           # "DevCleaner" = 1388020431;
           # "Developer" = 640199958;
