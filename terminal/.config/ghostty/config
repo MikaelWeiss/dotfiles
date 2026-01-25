@@ -2,4 +2,6 @@
 # on Ghostty's website, at https://ghostty.org/docs/config.
 font-family = "MesloLGS NF"
 keybind = shift+enter=text:\n
+keybind = shift+space=text:\x20
+keybind = shift+backspace=text:\x7f
 term = xterm-256color
