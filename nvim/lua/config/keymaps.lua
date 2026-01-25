@@ -2,8 +2,9 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- Toggle file explorer with cmd+s
+-- Toggle file explorer with cmd+s or leader+e
 vim.keymap.set("n", "<D-s>", ":Neotree toggle last<CR>", { desc = "Toggle file explorer" })
+vim.keymap.set("n", "<leader>e", ":Neotree toggle last<CR>", { desc = "Toggle file explorer" })
 
 -- Open file search with shift+cmd+o
 vim.keymap.set("n", "<D-S-o>", "<cmd>Telescope find_files<cr>", { desc = "Find Files" })

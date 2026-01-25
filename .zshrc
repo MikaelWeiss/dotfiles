@@ -45,6 +45,7 @@ alias :q='exit'
 alias nix-rebuild='sudo darwin-rebuild switch'
 alias nix-config='nvim /Users/mikaelweiss/code/dotfiles/nix-darwin/flake.nix'
 alias nix-clean='nix-collect-garbage --delete-older-than 7d && sudo nix-collect-garbage --delete-older-than 7d && nix-store --optimise'
+alias tm='tmux new-session -A -s main'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -98,3 +99,4 @@ eval "$(direnv hook zsh)"
 
 # Set up term
 export TERM=xterm-256color
+export PATH="/usr/local/opt/node@24/bin:$PATH"

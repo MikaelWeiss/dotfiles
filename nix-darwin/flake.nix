@@ -22,7 +22,9 @@
         [
         vim # Vim
         yazi # File browser
-        tmux # Terminal window/session manager
+        tmux # Multiplexer
+        zellij # Multiplexer
+        stow # Dotfiles manager
         flyctl # CLI for Fly.io
         fzf # Fuzy find files
         gh # GitHub CLI
@@ -63,8 +65,6 @@
         # For typescriptLSP Claude Code plugin
         nodePackages.typescript
         nodePackages.typescript-language-server
-        # Fun Stuff
-        claude-code
         ];
 
       # Set nvim as default editor
@@ -127,7 +127,9 @@
 
         # GUI Applications
         casks = [
-          "android-commandlinetools"
+          "1password"
+          "rapidapi"
+          # "android-commandlinetools"
           "android-ndk"
           "android-platform-tools"
           "android-studio"
@@ -168,7 +170,7 @@
         };
 
         # Automatically uninstall things in Homebrew not listed in this flake
-        onActivation.cleanup = "zap";
+        # onActivation.cleanup = "zap";
 
         # Auto-update Homebrew
         onActivation.autoUpdate = true;
