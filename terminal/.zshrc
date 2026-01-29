@@ -96,7 +96,13 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Direnv stuff
 eval "$(direnv hook zsh)"
+eval "$(atuin init zsh)"
 
 # Set up term
 export TERM=xterm-256color
 export PATH="/usr/local/opt/node@24/bin:$PATH"
+
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+

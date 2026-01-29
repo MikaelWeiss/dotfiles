@@ -3,3 +3,4 @@
 --ignore='\.DS_Store'
 --ignore='nix-darwin'
 --ignore='\.claude'
+--ignore='fix-ios-dev.sh'
