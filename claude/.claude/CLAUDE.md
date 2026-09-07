@@ -17,11 +17,12 @@ Only enter plan mode when I explicitly ask ("make a plan", "use plan mode").
 
 ## Plan quality
 
-A plan that only says what to build is half a plan; the valuable half is what must not happen. The `/plan` skill encodes this procedure end to end; prefer invoking it when planning. Whether or not the skill is loaded, before presenting any plan:
+A plan removes choices, not reading. The implementer has the code; the plan settles what the code does not. The `/plan` skill encodes the procedure; prefer it. Whether or not it is loaded, before presenting any plan:
 
-1. **Enumerate the definition of done from the repo's own docs.** Discover which rules and standards govern the surfaces being touched by lookup, not by wandering (path-scoped rule files, instruction maps, linked standards docs), and name every gate they impose: lint, required test surfaces, contract chains, walkthrough/QA docs, feature-flag lockstep, manual checklists. Each becomes an acceptance criterion. Deliberately skipping a documented gate is a scope decision: write it as an explicit out-of-scope line, never omit it silently.
-2. **Run a failure-mode pass over the design.** For every piece of persisted state, shared resource, or concurrent actor: what happens when the data is older, newer, corrupt, or written by two actors at once? When permissions or context shift underneath a live view? When a flow is interrupted halfway? Write the chosen invariant for each as one sentence in the plan.
-3. **Keep the plan lean.** Decisions and invariants, not prose. Each invariant should be implementable in a few lines and pinned by a test; prefer one decision plus one test over defensive sprawl.
+1. **List the gates that touch the paths in scope, from the repo's own docs.** Find them by lookup (path-scoped rule files, instruction maps, linked standards): lint, required tests, contract chains, walkthrough docs, flag lockstep, manual checklists. Each is an acceptance criterion. A gate skipped on purpose is one out-of-scope line, never silence.
+2. **Run a failure-mode pass.** For each piece of persisted state, shared resource, or concurrent actor: data older or newer than the code, corrupt, two writers at once, permissions shifting under a live view, a flow stopped halfway. One-sentence invariant each, pinned by one test. When none apply, one line says so.
+3. **Decide, or ask.** A choice the code does not settle and that matters (hard to reverse, cross-cutting, user-visible, a new dependency) comes to me as two or three options with trade-offs and a recommendation. A choice that does not matter much is yours: make it and write it as a decision I can override.
+4. **Keep it lean.** A line earns its place only if the implementer would plausibly do something different and wrong without it. What must be true, not how to write it. A line that could be pasted into a file is implementation: cut it. Paths are bearings, not proof.
 
 ## Read before claiming
 
