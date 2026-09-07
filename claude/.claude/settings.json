@@ -105,7 +105,7 @@
       "Read(./secrets/**)"
     ]
   },
-  "model": "claude-opus-5[1m]",
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -196,8 +196,7 @@
     "rust-analyzer-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "worktrunk@worktrunk": true,
-    "atlassian@claude-plugins-official": true
+    "worktrunk@worktrunk": true
   },
   "extraKnownMarketplaces": {
     "svelte": {
@@ -214,9 +213,13 @@
     }
   },
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "low"
+    }
+  },
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
-  "autoMemoryEnabled": false,
   "autoDreamEnabled": true,
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
@@ -226,6 +229,7 @@
   "preferredNotifChannel": "auto",
   "switchModelsOnFlag": true,
   "teammateMode": "auto",
+  "remoteControlAtStartup": false,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
   "voiceEnabled": true,
