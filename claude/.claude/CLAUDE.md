@@ -97,3 +97,10 @@ It takes a long time to run lint, the code, and tests, so by default don't run a
 Never `cd` inside a Bash command. Pass absolute paths to every argument.
 A `cd` leaves the search directory unresolvable, and the `Read()` deny rules in
 settings.json turn that into a permission prompt even under bypass mode.
+
+## Nix
+
+Rebuild a machine with `nix-rebuild`, the alias in `~/.zshrc`. It picks the
+right flake and host for the machine it runs on. Never spell out
+`darwin-rebuild` or `nixos-rebuild`. From a non-interactive shell, including
+over ssh, run `zsh -ic nix-rebuild` on the target machine.
