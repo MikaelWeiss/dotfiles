@@ -73,14 +73,12 @@ alias venv='source .venv/bin/activate'
 alias xc='sh ~/code/dotfiles/resize-xcode.sh'
 alias :q='exit'
 if [[ "$OSTYPE" == darwin* ]]; then
-  alias nix-rebuild='sudo darwin-rebuild switch --flake ~/code/dotfiles/nix-darwin#$(scutil --get LocalHostName)'
-  alias nix-update='(cd ~/code/dotfiles/nix-darwin && nix flake update) && nix-rebuild'
-  alias nix-config='nvim ~/code/dotfiles/nix-darwin/flake.nix'
+  alias nix-rebuild='sudo darwin-rebuild switch --flake ~/code/dotfiles/nix#$(scutil --get LocalHostName)'
 else
-  alias nix-rebuild='sudo nixos-rebuild switch --flake ~/code/dotfiles/nixos'
-  alias nix-update='(cd ~/code/dotfiles/nixos && sudo nix flake update) && nix-rebuild'
-  alias nix-config='nvim ~/code/dotfiles/nixos'
+  alias nix-rebuild='sudo nixos-rebuild switch --flake ~/code/dotfiles/nix'
 fi
+alias nix-update='(cd ~/code/dotfiles/nix && nix flake update) && nix-rebuild'
+alias nix-config='nvim ~/code/dotfiles/nix/shared.nix'
 alias nix-clean='nix-collect-garbage --delete-older-than 7d && sudo nix-collect-garbage --delete-older-than 7d && nix-store --optimise'
 alias tm='tmux new-session -A -s main'
 alias stopheat='xcrun simctl shutdown all'
@@ -134,16 +132,10 @@ eval "$(zoxide init zsh)"
 # Enable shell history with iex
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-# Direnv stuff
-eval "$(direnv hook zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 
 # Set up term
 export TERM=xterm-256color
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/mikaelweiss/.lmstudio/bin"
-# End of LM Studio CLI section
 
 # SwiftPM
 export PATH="$HOME/.swiftpm/bin:$PATH"
@@ -182,7 +174,6 @@ export CONTEXT7_API_KEY="$(
   )"
 export PATH="/Users/mikaelweiss/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/Users/mikaelweiss/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 
 export BUN_INSTALL="$HOME/.bun"

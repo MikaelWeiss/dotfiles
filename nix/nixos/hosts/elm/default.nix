@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../../common.nix
     ./hardware.nix
     ../../modules/desktop.nix
     ../../modules/minecraft.nix
@@ -23,7 +22,6 @@
     elixir
     erlang
     postgresql
-    nodejs
     ffmpeg
     libdvdcss
     dvdbackup

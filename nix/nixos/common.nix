@@ -7,13 +7,7 @@
   time.timeZone = "America/Boise";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-  nixpkgs.config.allowUnfree = true;
+  nix.gc.dates = "weekly";
 
   networking.nameservers = [ "1.1.1.1" ];
   services.resolved = {
@@ -44,26 +38,12 @@
   security.sudo.wheelNeedsPassword = false;
 
   environment.systemPackages = with pkgs; [
-    wget
-    neovim
     gcc
-    vim
     git
-    lazygit
-    zoxide
-    fzf
-    btop
-    yazi
     restic
-    ripgrep
     jq
     unzip
-    tmux
-    tldr
-    stow
-    atuin
     mise
-    direnv
     tailscale
     zsh-powerlevel10k
     meslo-lgs-nf
@@ -99,7 +79,7 @@
   # Tailscale tracks upstream faster than the stable channel; pull it from unstable.
   nixpkgs.overlays = [
     (final: prev: {
-      tailscale = inputs.nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system}.tailscale;
+      tailscale = inputs.nixpkgs.legacyPackages.${prev.stdenv.hostPlatform.system}.tailscale;
     })
   ];
   # Trust oak's host key so restic sftp backups verify non-interactively.

@@ -38,7 +38,7 @@ Add a new Paper-based Minecraft server container to `configuration.nix` with Ben
    - `DIFFICULTY = "normal"`
    - `SPAWN_PROTECTION = "0"` (WorldGuard handles spawn protection instead)
    - `ALLOW_FLIGHT = "true"` (BentoBox IslandFly and creative mode need this)
-4. Run `sudo nixos-rebuild switch --flake /home/mikaelweiss/code/dotfiles/nixos#elm`.
+4. Run `sudo nixos-rebuild switch --flake /home/mikaelweiss/code/dotfiles/nix#elm`.
 5. Verify the container starts and all Modrinth plugins download successfully by checking container logs (`podman logs skyblock`).
 6. After first successful boot, stop the container and place an `ops.json` file in `/mnt/nvme/minecraft/skyblock/data/` granting op level 4 to `Moroni56` (UUID `dbef463f-9fc5-4b8f-9976-3a4f1aa4b4af`).
 7. Restart the container and verify op status works by joining and running `/gamemode creative`.

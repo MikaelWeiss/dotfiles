@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../../common.nix
     ./hardware.nix
     ./disko.nix
     ../../modules/sites.nix

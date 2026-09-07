@@ -18,7 +18,7 @@ Move both existing Minecraft server data directories from the root disk to `/mnt
 5. Update `configuration.nix` container `rexburg-friends` volume to `"/mnt/nvme/minecraft/rexburg-friends/data:/data"`.
 6. Change `rexburg-friends` `MEMORY` from `"4G"` to `"2G"`.
 7. Update all three existing backup service scripts (`minecraft-backup`, `rexburg-friends-backup`) to reference the new `/mnt/nvme/minecraft/` paths. The `share-backup` service is unrelated and stays unchanged.
-8. Run `sudo nixos-rebuild switch --flake /home/mikaelweiss/code/dotfiles/nixos#elm` and verify both containers start and are joinable.
+8. Run `sudo nixos-rebuild switch --flake /home/mikaelweiss/code/dotfiles/nix#elm` and verify both containers start and are joinable.
 9. After verifying both servers work with the new paths, remove the old data directories (`/home/mikaelweiss/.minecraft-server/` and `/home/mikaelweiss/.rexburg-friends/`).
 
 ## Files
