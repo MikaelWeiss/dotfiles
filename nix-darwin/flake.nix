@@ -71,6 +71,7 @@
         "shottr"
         "signal"
         "conductor"
+        "tailscale-app"
       ];
     };
 
@@ -85,9 +86,6 @@
       programs.zsh = {
         enable = true;
         interactiveShellInit = ''
-          # Tailscale
-          alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-
           # LM Studio CLI
           export PATH="$PATH:/Users/mikaelweiss/.lmstudio/bin"
 
@@ -97,6 +95,10 @@
           export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
         '';
       };
+
+      homebrew.brews = [
+        "tailscale"
+      ];
     };
 
     workConfig = { pkgs, ... }: {
@@ -303,7 +305,6 @@
           # "obs"
           # "obsidian"
           "raycast"
-          "tailscale-app"
           "ollama-app"
           # "notion"
           # Dev tools
@@ -337,7 +338,6 @@
           # "Pages" = 409201541;
           # "RocketSim" = 1504940162;
           # "Slack" = 803453959;
-          # "Tailscale" = 1475387142;
           # "Transporter" = 1450874784
         };
 
