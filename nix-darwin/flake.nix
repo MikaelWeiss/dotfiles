@@ -82,29 +82,6 @@
         # Wolf-only packages here
       ];
 
-      launchd.user.agents.open-webui = {
-        serviceConfig = {
-          ProgramArguments = [
-            "/Users/mikaelweiss/.local/bin/open-webui"
-            "serve"
-            "--host"
-            "127.0.0.1"
-            "--port"
-            "8089"
-          ];
-          EnvironmentVariables = {
-            DATA_DIR = "/Users/mikaelweiss/.open-webui";
-            WEBUI_SECRET_KEY = "t0p-s3cr3t";
-            HOME = "/Users/mikaelweiss";
-          };
-          WorkingDirectory = "/Users/mikaelweiss/.open-webui";
-          RunAtLoad = true;
-          KeepAlive = true;
-          StandardOutPath = "/tmp/open-webui.log";
-          StandardErrorPath = "/tmp/open-webui.err";
-        };
-      };
-
       programs.zsh = {
         enable = true;
         interactiveShellInit = ''
