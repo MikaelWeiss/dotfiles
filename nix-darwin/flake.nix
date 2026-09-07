@@ -247,9 +247,13 @@
       system.primaryUser = "mikaelweiss";
 
       # Every Mac runs its own mutagen daemon with sessions to elm, the
-      # always-on hub (see terminal/bin/sync-setup and wolf-sync.md).
-      launchd.user.agents.mutagen = {
+      # always-on hub (see terminal/bin/sync-setup). A system daemon rather
+      # than a user agent: user agents start only at GUI login, and wolf
+      # runs headless.
+      launchd.daemons.mutagen = {
         serviceConfig = {
+          UserName = "mikaelweiss";
+          EnvironmentVariables.HOME = "/Users/mikaelweiss";
           ProgramArguments = [
             "${pkgs.mutagen}/bin/mutagen"
             "daemon"
