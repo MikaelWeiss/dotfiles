@@ -189,3 +189,13 @@ terminal/.config/composer/*
 terminal/.config/herd-lite/*
 terminal/.config/opencode/*
 terminal/.config/psysh/*
+
+# Claude Code remote daemon state
+claude/.claude/remote/
+
+# Codex runtime/state
+codex/.codex/thread-writer-locks/
+codex/.codex/transcription-history.jsonl
+
+# cliproxy shared secret
+terminal/.config/cliproxy/env
