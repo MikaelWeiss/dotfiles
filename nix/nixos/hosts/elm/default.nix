@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ../../modules/desktop.nix
+    ../../modules/remote-desktop.nix
     ../../modules/minecraft.nix
     ../../modules/backups.nix
   ];

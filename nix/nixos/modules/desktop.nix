@@ -14,9 +14,15 @@ in
 
   services.greetd = {
     enable = true;
-    settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --cmd niri-session";
-      user = "greeter";
+    settings = {
+      initial_session = {
+        command = "niri-session";
+        user = "mikaelweiss";
+      };
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --cmd niri-session";
+        user = "greeter";
+      };
     };
   };
 
