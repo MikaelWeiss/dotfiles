@@ -20,7 +20,7 @@ let
 
   sync = pkgs.writeShellScript "npm-globals" ''
     set -eu
-    export PATH="${pkgs.nodejs}/bin:$PATH"
+    export PATH="${pkgs.nodejs}/bin:${pkgs.bash}/bin:$PATH"
     prefix="$HOME/.npm-global"
     modules="$prefix/lib/node_modules"
     mkdir -p "$modules" "$prefix/bin"
