@@ -59,10 +59,11 @@
     serviceConfig = {
       UserName = "mikaelweiss";
       EnvironmentVariables.HOME = "/Users/mikaelweiss";
+      # /nix is a separate volume, not yet mounted when launchd loads daemons.
       ProgramArguments = [
-        "${pkgs.mutagen}/bin/mutagen"
-        "daemon"
-        "run"
+        "/bin/sh"
+        "-c"
+        "/bin/wait4path /nix/store && exec ${pkgs.mutagen}/bin/mutagen daemon run"
       ];
       RunAtLoad = true;
       KeepAlive = true;
